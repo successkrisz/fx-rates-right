@@ -1,0 +1,14 @@
+@import '../../styles/base';
+
+.footer__primary {
+  padding: 1rem;
+  a {
+    color: $colors_base_text;
+    text-decoration: none;
+    transition: all 0.5s;
+    &:hover {
+      text-decoration: underline;
+      color: $colors_red;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+@mixin button_default {
+  border: 1px solid $colors_button_border;
+  background-color: $colors_button_background;
+  &:hover {
+    border-color: $colors_black;
+    cursor: pointer;
+  }
+}
+
+.button-default {
+  @include button_default;
+  padding: 0.5em;
+  margin: 0.5em;
+}

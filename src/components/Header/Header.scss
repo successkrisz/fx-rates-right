@@ -1,0 +1,16 @@
+@import '../../styles/base';
+
+.header__primary {
+  margin-bottom: .5rem;
+  background-color: rgba($colors_white, .8);
+  transition: background-color 0.7s;
+  &:hover {
+    background-color: rgba($colors_white, .9);
+  }
+}
+
+@media (max-width: 960px) {
+  .header__primary {
+    margin-bottom: 0;
+  }
+}

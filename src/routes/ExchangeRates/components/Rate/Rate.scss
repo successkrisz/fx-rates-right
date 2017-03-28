@@ -1,0 +1,16 @@
+@import '../../../../styles/base';
+
+.rates__rate {
+  @include button_default;
+  padding: 0.5rem;
+  display: block;
+  line-height: 36px;
+  img {
+    vertical-align: middle;
+    margin-right: 0.5rem;
+  }
+  span {
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+  }
+}

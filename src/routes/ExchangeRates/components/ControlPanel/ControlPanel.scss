@@ -1,0 +1,48 @@
+@import '../../../../styles/base';
+
+.exchange_rates__label {
+  text-align: right;
+}
+
+@media (max-width: 960px) {
+  .exchange_rates__label {
+    text-align: center;
+  }
+}
+
+.exchange_rates__form-field {
+  text-align: left;
+}
+
+@media (max-width: 960px) {
+  .exchange_rates__form-field {
+    text-align: center;
+  }
+}
+
+.button-wide {
+  @include button_default;
+  width: 100%;
+  text-align: center;
+  line-height: 36px;
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: all .7s;
+  &:hover {
+    cursor: pointer;
+  }
+  /* Allow inline for spinner */
+  span {
+    display: inline;
+    margin-right: 0;
+  }
+}
+
+.warning {
+  color: $colors_orange;
+  padding: 0.5em;
+}
+.error {
+  color: $colors_red;
+  padding: 0.5em;
+}

@@ -1,0 +1,18 @@
+@import '../../../../styles/base';
+
+.rates__date {
+  display: block;
+  margin: 1rem 0.5rem;
+  border: 1px solid $colors_button_border;
+  background-color: $colors_button_background;
+  padding: 0.5rem;
+}
+
+.rates__rate_container {
+  @include row;
+}
+
+.rates__click-advice {
+  padding-top: 0.5rem;
+  font-size: 0.9rem;
+}

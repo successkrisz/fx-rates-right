@@ -1,0 +1,30 @@
+@import '../../styles/base';
+
+.core-layout__container {
+  background-image: url('../../assets/bg1920.jpg');
+  background-attachment: fixed;
+  background-position: center;
+  /* Basic text alignment is center */
+  text-align: center;
+}
+
+.core-layout__viewport {
+  /* layout */
+  max-width: 960px;
+  margin: 0 auto;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  /* styling */
+  background-color: rgba($colors_white, .95);
+  box-shadow: 0 0 3px 3px rgba($colors_darkgrey, .2);
+  border-radius: 3px;
+}
+
+/*
+Use large background picture for screens above 1080p
+*/
+@media (max-width: 1920px) {
+  .core-layout__container {
+    background-image: url('../../assets/bg5120.jpg');
+  }
+}
