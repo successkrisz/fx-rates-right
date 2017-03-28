@@ -1,5 +1,8 @@
 # FX Rates Right
 
+[![Build Status](https://travis-ci.org/successkrisz/fx-rates-right.svg?branch=master)](https://travis-ci.org/successkrisz/fx-rates-right?branch=master)
+[![dependencies](https://david-dm.org/successkrisz/fx-rates-right.svg)](https://david-dm.org/successkrisz/fx-rates-right)
+[![devDependency Status](https://david-dm.org/successkrisz/fx-rates-right/dev-status.svg)](https://david-dm.org/successkrisz/fx-rates-right#info=devDependencies)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 ### Description
@@ -12,6 +15,7 @@ Written for an interview coding challenge.
  * React
  * Redux
  * React Router
+ * Recharts
  * davezuko's development setup (Webpack, ES6+, ...)
 
 ### Install from source
