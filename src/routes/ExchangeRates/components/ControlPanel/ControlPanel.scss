@@ -46,3 +46,16 @@
   color: $colors_red;
   padding: 0.5em;
 }
+
+.error-box {
+  text-align: center;
+  span {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 0 0 0;
+    color: $colors_red;
+    border: 1px solid colors_red;
+    border-radius: 3px;
+    background-color: rgba($colors_red, .2)
+  }
+}

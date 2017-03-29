@@ -7,7 +7,7 @@ import { selectors, fetchRates } from '../../modules/exchangeRates'
 import CurrencyPicker from '../CurrencyPicker'
 import DatePicker from '../DatePicker'
 
-const ControlPanel = ({ handleSubmit, currencies }) => (
+const ControlPanel = ({ handleSubmit, currencies, error }) => (
   <form onSubmit={handleSubmit} className='exchange_rates__control_panel'>
     <div className='row'>
       <div className='col--4 exchange_rates__label'>
@@ -30,12 +30,18 @@ const ControlPanel = ({ handleSubmit, currencies }) => (
         <button className='button-wide' type='submit'>Request rates</button>
       </div>
     </div>
+    { (error) ? (
+      <div className='error-box'>
+        <span>{error}</span>
+      </div>
+    ) : null }
   </form>
 )
 
 ControlPanel.propTypes = {
   currencies  : PropTypes.object.isRequired,
-  handleSubmit: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired,
+  error       : PropTypes.string.isRequired
 }
 
 const mapStateToProps = state => {
@@ -43,6 +49,7 @@ const mapStateToProps = state => {
   const baseCurrency = selectors.getBaseCurrency(state)
   const currencyLabel = `${baseCurrency} - ${currencies[baseCurrency].name}`
   return {
+    error        : selectors.getError(state),
     currencies   : currencies,
     initialValues: {
       date    : selectors.getSelectedDate(state),

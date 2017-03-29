@@ -131,9 +131,12 @@ export const getBaseCurrency = state => state.baseCurrency
 
 export const getSelectedDate = state => state.date
 
+export const getError = state => state.error
+
 export const selectors = {
   getCurrencies   : state => getCurrencies(state[reducerKey]),
   getRates        : state => getRates(state[reducerKey]),
   getBaseCurrency : state => getBaseCurrency(state[reducerKey]),
-  getSelectedDate : state => getSelectedDate(state[reducerKey])
+  getSelectedDate : state => getSelectedDate(state[reducerKey]),
+  getError        : state => getError(state[reducerKey])
 }
