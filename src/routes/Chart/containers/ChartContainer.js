@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import moment from 'moment'
 import Spinner from 'components/Spinner'
-import fetchCurrencies from 'lib/api'
+import { fetchCurrencies } from 'lib/api'
 import Chart from '../components/Chart'
 
 /**

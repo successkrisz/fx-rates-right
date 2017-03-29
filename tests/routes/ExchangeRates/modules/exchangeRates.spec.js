@@ -35,7 +35,7 @@ describe('(Redux Module) Exchange Rates', () => {
         expect(state).to.eql(initialState)
         state = reducer(state, { type: 'xxx' })
         expect(state).to.eql(initialState)
-        state = reducer(state, setError({ message: 'error' }))
+        state = reducer(state, setError('error'))
         expect(state).to.eql({ ...initialState, error: 'error' })
         state = reducer(state, { type: 'xxx' })
         expect(state).to.eql({ ...initialState, error: 'error' })
@@ -66,11 +66,11 @@ describe('(Redux Module) Exchange Rates', () => {
       })
 
       it('Should return an action with type "COUNTER_INCREMENT".', () => {
-        expect(setError({ message: 'error' })).to.have.property('type', SET_FETCHING_ERROR)
+        expect(setError('error')).to.have.property('type', SET_FETCHING_ERROR)
       })
 
       it('Should assign the first argument to the "payload" property.', () => {
-        expect(setError({ message: 'error' })).to.have.property('payload', 'error')
+        expect(setError('error')).to.have.property('payload', 'error')
       })
     })
 

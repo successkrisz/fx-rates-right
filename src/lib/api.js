@@ -17,29 +17,60 @@ const API_URL = 'https://api.fixer.io/'
  * @param {string} selectedCurrency
  * @returns {Promise}
  */
-export default function fetchCurrencies ({ date = 'latest', base, selectedCurrency }) {
-  if (!isDateValid(date)) return Promise.reject(new Error('Date too old'))
+export async function fetchCurrencies ({ date, base, selectedCurrency }) {
+  const dateString = formatDate(validateDate(parseDate(date)))
+  let query = `${API_URL}${dateString}?base=${base}`
 
-  let query = `${API_URL}${date}?base=${base}`
   if (selectedCurrency) {
     query += `&symbols=${selectedCurrency}`
   }
-  return fetch(query).then(response => response.json())
+
+  return fetch(query).then(response => {
+    if (response.status !== 200) {
+      throw Error('Error Connecting to Server, please try again')
+    }
+    return response.json()
+  })
 }
 
 /**
- * Funtion to verify that the date is valid
+ * Transforms input string to a moment.js date object, throw Error if not
+ *
  * @param {string} date
- * @returns {boolean}
+ * @returns {object} Date object
  */
-function isDateValid (date) {
-  let requestedDate
+function parseDate (date) {
+  let parsedDate
 
   try {
-    requestedDate = parseInt(moment(date).format('YYYYMMDD'), 10)
+    parsedDate = moment(date)
   } catch (e) {
-    return false
+    throw Error('Date supplied is not a valid date')
   }
+  return parsedDate
+}
 
-  return (requestedDate > 19990103)
+/**
+ * Check if date is within acceptable range, returns date, if not throw Error
+ *
+ * @param {object} date
+ * @returns {object} Date object
+ */
+function validateDate (date) {
+  const requestedDate = parseInt(date.format('YYYYMMDD'), 10)
+  const oldestAvailableDate = 19990104
+
+  if (requestedDate < oldestAvailableDate) throw Error('Date Supplied is too old')
+
+  return date
+}
+
+/**
+ * Transforms input string to a moment.js date object, throw Error if not
+ *
+ * @param {object} date
+ * @returns {string} Date string in YYYY-MM-DD format for query
+ */
+function formatDate (date) {
+  return moment(date).format('YYYY-MM-DD')
 }

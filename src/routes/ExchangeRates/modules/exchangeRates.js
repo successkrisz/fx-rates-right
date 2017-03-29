@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-import fetchCurrencies from '../../../lib/api'
+import { fetchCurrencies } from '../../../lib/api'
 import { currencies } from '../constants'
 import { reducerKey } from '../index'
 
@@ -29,7 +29,7 @@ export const initialState = {
 // =============================
 export const setError = error => ({
   type    : SET_FETCHING_ERROR,
-  payload : error.message
+  payload : error
 })
 
 export const setFetchingFlag = isFetching => ({
