@@ -25,7 +25,7 @@ export async function fetchCurrencies ({ date, base, selectedCurrency }) {
   if (selectedCurrency) {
     query += `&symbols=${selectedCurrency}`
   }
-  
+
   return fetch(query).then(response => {
     if (__DEV__) {
       console.log(response)
