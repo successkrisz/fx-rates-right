@@ -41,7 +41,10 @@ const ControlPanel = ({ handleSubmit, currencies, error }) => (
 ControlPanel.propTypes = {
   currencies  : PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  error       : PropTypes.string.isRequired
+  error       : PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool
+  ])
 }
 
 const mapStateToProps = state => {
