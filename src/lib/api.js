@@ -20,8 +20,7 @@ const API_URL = 'https://api.fixer.io/'
 export default function fetchCurrencies ({ date = 'latest', base, selectedCurrency }) {
   if (!isDateValid(date)) return Promise.reject(new Error('Date too old'))
 
-  const validDate = returnLastWeekdayIfWeekend(date)
-  let query = `${API_URL}${validDate}?base=${base}`
+  let query = `${API_URL}${date}?base=${base}`
   if (selectedCurrency) {
     query += `&symbols=${selectedCurrency}`
   }
@@ -43,21 +42,4 @@ function isDateValid (date) {
   }
 
   return (requestedDate > 19990103)
-}
-
-/**
- * Funtion to transform date to weekday if it's Saturday/Sunday
- * @param {string} date
- * @returns {string}
- */
-function returnLastWeekdayIfWeekend (date) {
-  const day = moment(date).format('dddd')
-
-  if (day === 'Sunday') {
-    return moment(date).subtract(2, 'day').format('YYYY-MM-DD')
-  }
-  if (day === 'Saturday') {
-    return moment(date).subtract(1, 'day').format('YYYY-MM-DD')
-  }
-  return date
 }
