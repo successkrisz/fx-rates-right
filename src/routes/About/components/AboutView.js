@@ -1,4 +1,5 @@
 import React from 'react'
+import { redirectsTo } from 'modules/redirectsTo'
 import './AboutView.scss'
 
 export const AboutView = () => (
@@ -22,7 +23,11 @@ export const AboutView = () => (
       <li>Hit the Request Rates button and you're ready to go!</li>
       <li>Enjoy ;-)</li>
     </ul>
-    <h3 className='text-center'>Give it a try!</h3>
+    <div className='text-center'>
+      <button className='button-default' onClick={redirectsTo('/exchange-rates')}>
+        Give it a try!
+      </button>
+    </div>
   </div>
 )
 

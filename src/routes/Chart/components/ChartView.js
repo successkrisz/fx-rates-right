@@ -1,14 +1,12 @@
 import React, { PropTypes } from 'react'
 import moment from 'moment'
-import { browserHistory } from 'react-router'
+import { redirectsTo } from 'modules/redirectsTo'
 import ChartContainer from '../containers/ChartContainer'
 import './ChartView.scss'
 
-const dateFormat = 'DD MMM YYYY'
-const handleClick = () => { browserHistory.push('/exchange-rates') }
-
 const ChartView = (props) => {
   const { baseCurrency, selectedCurrency } = props.params
+  const dateFormat = 'DD MMM YYYY'
   const dateFrom = moment().subtract(1, 'year').format(dateFormat)
   const dateUntil = moment().format(dateFormat)
 
@@ -23,7 +21,9 @@ const ChartView = (props) => {
       <div className='route-chart__viewport'>
         <ChartContainer baseCurrency={baseCurrency} selectedCurrency={selectedCurrency} />
       </div>
-      <button className='button-default' onClick={handleClick}>Take me back to Exchange rates</button>
+      <button className='button-default' onClick={redirectsTo('/exchange-rates')}>
+        Take me back to Exchange rates
+      </button>
     </div>
   )
 }
