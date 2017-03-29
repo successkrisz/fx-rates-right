@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch'
 import moment from 'moment'
+import { pipe } from 'lodash/fp'
 
 const API_URL = 'https://api.fixer.io/'
 
@@ -18,14 +19,17 @@ const API_URL = 'https://api.fixer.io/'
  * @returns {Promise}
  */
 export async function fetchCurrencies ({ date, base, selectedCurrency }) {
-  const dateString = formatDate(validateDate(parseDate(date)))
+  const dateString = pipe(parseDate, validateDate, formatDate)(date)
   let query = `${API_URL}${dateString}?base=${base}`
 
   if (selectedCurrency) {
     query += `&symbols=${selectedCurrency}`
   }
-
+  
   return fetch(query).then(response => {
+    if (__DEV__) {
+      console.log(response)
+    }
     if (response.status !== 200) {
       throw Error('Error Connecting to Server, please try again')
     }
