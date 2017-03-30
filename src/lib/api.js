@@ -31,7 +31,7 @@ export async function fetchCurrencies ({ date, base, selectedCurrency }) {
       console.log(response)
     }
     if (response.status !== 200) {
-      throw Error('Error Connecting to Server, please try again')
+      throw new Error('Error Connecting to Server, please try again')
     }
     return response.json()
   })
@@ -43,13 +43,13 @@ export async function fetchCurrencies ({ date, base, selectedCurrency }) {
  * @param {string} date
  * @returns {object} Date object
  */
-function parseDate (date) {
+export function parseDate (date) {
   let parsedDate
 
   try {
     parsedDate = moment(date)
   } catch (e) {
-    throw Error('Date supplied is not a valid date')
+    throw new Error('Date supplied is not a valid date')
   }
   return parsedDate
 }
@@ -60,21 +60,21 @@ function parseDate (date) {
  * @param {object} date
  * @returns {object} Date object
  */
-function validateDate (date) {
+export function validateDate (date) {
   const requestedDate = parseInt(date.format('YYYYMMDD'), 10)
   const oldestAvailableDate = 19990104
 
-  if (requestedDate < oldestAvailableDate) throw Error('Date Supplied is too old')
+  if (requestedDate < oldestAvailableDate) throw new Error('Date Supplied is too old')
 
   return date
 }
 
 /**
- * Transforms input string to a moment.js date object, throw Error if not
+ * Transforms date input to a date string, throw Error if not
  *
  * @param {object} date
  * @returns {string} Date string in YYYY-MM-DD format for query
  */
-function formatDate (date) {
-  return moment(date).format('YYYY-MM-DD')
+export function formatDate (date) {
+  return date.format('YYYY-MM-DD')
 }
