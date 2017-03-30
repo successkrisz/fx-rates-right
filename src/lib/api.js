@@ -8,8 +8,6 @@ const API_URL = 'https://api.fixer.io/'
  * Fetch Foreign Exchange Rates API
  *
  * Validates date, if it's not a valid date then returns rejected promise.
- * Check's if it's a weekend, if it's Saturday/Sunday returns the last Friday
- * as there's no data for weekends.
  * Once everything good to go fetch the API and if it resolves returns the
  * result unwrapped as a Promise
  *
@@ -18,13 +16,8 @@ const API_URL = 'https://api.fixer.io/'
  * @param {string} selectedCurrency
  * @returns {Promise}
  */
-export function fetchCurrencies ({ date, base, selectedCurrency }) {
-  const dateString = pipe(parseDate, validateDate, formatDate)(date)
-  let query = `${API_URL}${dateString}?base=${base}`
-
-  if (selectedCurrency) {
-    query += `&symbols=${selectedCurrency}`
-  }
+export const fetchCurrencies = ({ date, base, selectedCurrency }) => {
+  const query = makeQueryString({ date, base, selectedCurrency })
 
   return fetch(query)
     .then(checkStatus)
@@ -37,7 +30,7 @@ export function fetchCurrencies ({ date, base, selectedCurrency }) {
  * @param {string} date
  * @returns {object} Date object
  */
-export function parseDate (date) {
+const parseDate = date => {
   let parsedDate
 
   try {
@@ -54,7 +47,7 @@ export function parseDate (date) {
  * @param {object} date
  * @returns {object} Date object
  */
-export function validateDate (date) {
+const validateDate = date => {
   const requestedDate = parseInt(date.format('YYYYMMDD'), 10)
   const oldestAvailableDate = 19990104
 
@@ -69,7 +62,7 @@ export function validateDate (date) {
  * @param {object} date
  * @returns {string} Date string in YYYY-MM-DD format for query
  */
-export function formatDate (date) {
+const formatDate = date => {
   return date.format('YYYY-MM-DD')
 }
 
@@ -77,7 +70,7 @@ export function formatDate (date) {
  * @param {object} response
  * @returns {Promise}
  */
-function checkStatus (response) {
+const checkStatus = response => {
   if (response.status >= 200 && response.status < 300) {
     return response
   } else {
@@ -92,3 +85,20 @@ function checkStatus (response) {
  * @returns {Promise}
  */
 const parseJSON = response => response.json()
+
+/**
+ * @param {string} date
+ * @param {string} base
+ * @param {string} selectedCurrency
+ * @returns {string}
+ */
+const makeQueryString = ({ date, base, selectedCurrency }) => {
+  const dateString = pipe(parseDate, validateDate, formatDate)(date)
+  let query = `${API_URL}${dateString}?base=${base}`
+
+  if (selectedCurrency) {
+    query += `&symbols=${selectedCurrency}`
+  }
+
+  return query
+}
