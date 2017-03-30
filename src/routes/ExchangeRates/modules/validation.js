@@ -12,17 +12,17 @@ export const validate = ({ date, currency }) => {
     errors.currency = 'Sorry, this currency is not available yet.'
   } else if (currencies[currencyCode].until) {
     const lastDateAvailable = currencies[currencyCode].until
+    const lastDateAsNumber = parseInt(moment(lastDateAvailable).format('YYYYMMDD'), 10)
 
-    if (lastDateAvailable < dateAsNumber) {
-      const obsoleteDate = moment(lastDateAvailable).format('YYYY.MM.DD.')
-      errors.currency = `This currency became obsolete by ${obsoleteDate}`
+    if (lastDateAsNumber < dateAsNumber) {
+      errors.currency = `${currencyCode} were phased out at ${lastDateAvailable}`
     }
   } else if (currencies[currencyCode].from) {
     const firstDateAvailable = currencies[currencyCode].from
+    const firstDateAsNumber = parseInt(moment(firstDateAvailable).format('YYYYMMDD'), 10)
 
-    if (firstDateAvailable > dateAsNumber) {
-      const introducedAt = moment(firstDateAvailable).format('YYYY.MM.DD.')
-      errors.currency = `This currency was not yet available at ${introducedAt}`
+    if (firstDateAsNumber > dateAsNumber) {
+      errors.currency = `${currencyCode} was introduced at ${firstDateAvailable}`
     }
   }
 
