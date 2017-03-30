@@ -19,18 +19,23 @@ class ChartContainer extends React.Component {
 
   constructor (props) {
     super(props)
-    this.state = { requiredMonths: 12, data: [] }
+    this.state = {
+      requiredMonths: 12,
+      data: [],
+      error: ''
+    }
   }
 
-  updateRates = (dateToFetch) => {
+  updateRates = async (dateToFetch) => {
     const { data, requiredMonths } = this.state
     const { baseCurrency, selectedCurrency } = this.props
     const monthsInState = data.length
 
     if (monthsInState >= requiredMonths) return
 
-    fetchCurrencies({ date: dateToFetch, base: baseCurrency, selectedCurrency })
-    .then(result => {
+    try {
+      const result = await fetchCurrencies({ date: dateToFetch, base: baseCurrency, selectedCurrency })
+
       const month = moment(result.date).format('MMM')
 
       this.setState(state => ({
@@ -40,17 +45,28 @@ class ChartContainer extends React.Component {
           ...state.data
         ]
       }))
+
       const previousMonth = moment(result.date).subtract(1, 'months').format('YYYY-MM-DD')
+
       this.updateRates(previousMonth)
-    })
+    } catch (error) {
+      this.setState(state => ({
+        ...state, error: error.message
+      }))
+      return
+    }
   }
 
-  componentWillMount () {
+  componentDidMount () {
     this.updateRates(moment().format('YYYY-MM-DD'))
   }
 
   render () {
-    const { data, requiredMonths } = this.state
+    const { data, requiredMonths, error } = this.state
+
+    if (error) {
+      return <div className='error-box'><span>{error}</span></div>
+    }
 
     return (
       (data.length < requiredMonths)

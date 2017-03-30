@@ -50,7 +50,7 @@ export const setBaseCurrencyAndDate = ({ baseCurrency, date }) => ({
   }
 })
 
-export const fetchRates = (newDate, newCurrency) => (dispatch, getState) => {
+export const fetchRates = (newDate, newCurrency) => async (dispatch, getState) => {
   const { searched, baseCurrency, date } = getState()[reducerKey]
 
   newDate = newDate || date
@@ -66,22 +66,22 @@ export const fetchRates = (newDate, newCurrency) => (dispatch, getState) => {
     }))
   }
 
-  dispatch(setFetchingFlag(true))
+  try {
+    dispatch(setFetchingFlag(true))
 
-  return fetchCurrencies({ date: newDate, base: newCurrency })
-    .then(results => {
-      dispatch(saveRates(results))
-      dispatch(setError(false))
-      dispatch(setFetchingFlag(false))
-      dispatch(setBaseCurrencyAndDate({
-        baseCurrency: results.base,
-        date        : results.date
-      }))
-    })
-    .catch(error => {
-      dispatch(setError(error.message))
-      dispatch(setFetchingFlag(false))
-    })
+    const results = await fetchCurrencies({ date: newDate, base: newCurrency })
+
+    dispatch(saveRates(results))
+    dispatch(setError(false))
+    dispatch(setFetchingFlag(false))
+    dispatch(setBaseCurrencyAndDate({
+      baseCurrency: results.base,
+      date        : results.date
+    }))
+  } catch (error) {
+    dispatch(setError(error.message))
+    dispatch(setFetchingFlag(false))
+  }
 }
 
 export const actions = {

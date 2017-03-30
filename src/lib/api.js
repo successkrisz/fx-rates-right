@@ -18,7 +18,7 @@ const API_URL = 'https://api.fixer.io/'
  * @param {string} selectedCurrency
  * @returns {Promise}
  */
-export async function fetchCurrencies ({ date, base, selectedCurrency }) {
+export function fetchCurrencies ({ date, base, selectedCurrency }) {
   const dateString = pipe(parseDate, validateDate, formatDate)(date)
   let query = `${API_URL}${dateString}?base=${base}`
 
@@ -26,15 +26,9 @@ export async function fetchCurrencies ({ date, base, selectedCurrency }) {
     query += `&symbols=${selectedCurrency}`
   }
 
-  return fetch(query).then(response => {
-    if (__DEV__) {
-      console.log(response)
-    }
-    if (response.status !== 200) {
-      throw new Error('Error Connecting to Server, please try again')
-    }
-    return response.json()
-  })
+  return fetch(query)
+    .then(checkStatus)
+    .then(parseJSON)
 }
 
 /**
@@ -78,3 +72,23 @@ export function validateDate (date) {
 export function formatDate (date) {
   return date.format('YYYY-MM-DD')
 }
+
+/**
+ * @param {object} response
+ * @returns {Promise}
+ */
+function checkStatus (response) {
+  if (response.status >= 200 && response.status < 300) {
+    return response
+  } else {
+    let error = new Error(response.statusText)
+    error.response = response
+    throw error
+  }
+}
+
+/**
+ * @param {object} response
+ * @returns {Promise}
+ */
+const parseJSON = response => response.json()
