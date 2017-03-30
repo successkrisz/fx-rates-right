@@ -3,13 +3,17 @@ import { Field } from 'redux-form'
 import './CurrencyPicker.scss'
 
 const RenderCurrencyPicker = field => {
+  const { touched, error, warning } = field.meta
   return (
-    <div className='form__select'>
-      <select {...field.input} >
-        { Object.keys(field.currencies).map(currency => (
-          <option key={currency}>{currency} - {field.currencies[currency].name}</option>
-        )) }
-      </select>
+    <div>
+      <div className={(error) ? 'error form__select' : 'form__select'}>
+        <select {...field.input} >
+          { Object.keys(field.currencies).map(currency => (
+            <option key={currency}>{currency} - {field.currencies[currency].name}</option>
+          )) }
+        </select>
+      </div>
+      {touched && ((error && <div className='error'>{error}</div>) || (warning && <div className='warning'>{warning}</div>))}
     </div>
   )
 }

@@ -1,7 +1,15 @@
 @import '../../../../styles/base';
 
 .form__date_picker__input {
+  @include button_default;
+  background-color: white;
+  border-radius: 0;
   padding: 0.5em;
-  margin: 0.5rem 0;
-  width: 100%
+  margin: 0;
+  width: 100%;
+  -webkit-appearance: none;
+  &.error {
+    border-color: $colors_red;
+    color: $colors_red;
+  }
 }

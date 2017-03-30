@@ -5,6 +5,7 @@
   padding: 0.5rem;
   display: block;
   line-height: 36px;
+  height: 100%;
   img {
     vertical-align: middle;
     margin-right: 0.5rem;
@@ -13,4 +14,8 @@
     font-size: 1.5rem;
     line-height: 1.5rem;
   }
+}
+
+.col--3 {
+  align-self: stretch;
 }

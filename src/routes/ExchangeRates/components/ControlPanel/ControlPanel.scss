@@ -1,12 +1,23 @@
 @import '../../../../styles/base';
 
 .exchange_rates__label {
+  align-self: flex-start;
   text-align: right;
+  label {
+    display:inline-block;
+    margin-top: 0.5rem;
+  }
+}
+label.exchange_rates__label--for-date {
+  padding-top: 3px; /* fix for offset done by date field */
 }
 
 @media (max-width: 960px) {
   .exchange_rates__label {
     text-align: center;
+    label {
+      margin-top: 0;
+    }
   }
 }
 

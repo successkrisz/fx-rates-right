@@ -4,8 +4,11 @@ import './DatePicker.scss'
 
 const RenderDate = ({ input, meta: { touched, error, warning } }) => (
   <div className='form__date_picker'>
-    <input className='form__date_picker__input' type='date' {...input} />
-    {touched && ((error && <div className='error'>{error}</div>) || (warning && <div className='warning'>{warning}</div>))}
+    <input
+      className={(error) ? 'error form__date_picker__input' : 'form__date_picker__input'}
+      type='date' {...input} />
+    {touched && ((error && <div className='error'>{error}</div>) ||
+    (warning && <div className='warning'>{warning}</div>))}
   </div>
 )
 

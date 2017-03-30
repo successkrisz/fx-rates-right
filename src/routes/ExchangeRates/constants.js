@@ -40,5 +40,5 @@ export const currencies = {
   ROL: { symbol: 'ROL', name: 'Romanian Leu', until: 20050701 },
   SIT: { symbol: 'SIT', name: 'Slovenian Tolar', until: 20070102 },
   SKK: { symbol: 'Sk', name: 'Slovak Koruna', until: 20090102 },
-  TRL: { symbol: 'TRL', name: 'Turkish Lira', until: 20050102 }
+  TRL: { symbol: 'TRL', name: 'Turkish Lira (old)', until: 20050102 }
 }

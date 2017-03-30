@@ -19,7 +19,7 @@ const ControlPanel = ({ handleSubmit, currencies, error }) => (
     </div>
     <div className='row'>
       <div className='col--4 exchange_rates__label'>
-        <label htmlFor='date'>Select Date</label>
+        <label className='exchange_rates__label--for-date' htmlFor='date'>Select Date</label>
       </div>
       <div className='col--4 exchange_rates__form-field'>
         <DatePicker name='date' />
