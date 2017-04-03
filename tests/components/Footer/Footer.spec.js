@@ -9,7 +9,12 @@ describe('(Component) Footer', () => {
     wrapper = shallow(<Footer />)
   })
 
-  it('Renders as a footer', () => {
+  it('Should render as a footer', () => {
     expect(wrapper.type()).to.equal('footer')
+  })
+
+  it('Should render a link', () => {
+    const link = wrapper.find('a')
+    expect(link).to.exist
   })
 })
