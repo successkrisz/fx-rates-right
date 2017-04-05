@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-fetch'
+import 'isomorphic-fetch'
 import moment from 'moment'
 import { pipe } from 'lodash/fp'
 

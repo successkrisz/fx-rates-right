@@ -10,8 +10,36 @@ describe('(Component) Navigation', () => {
     wrapper = shallow(<Navigation />)
   })
 
-  it('Renders as a <div>', () => {
+  it('Should render as a <div>', () => {
     expect(wrapper.type()).to.equal('div')
+  })
+
+  it('Should render a mobile menubar to access menu on mobile', () => {
+    const menubar = wrapper.find('div.nav__menubar')
+    expect(menubar.length).to.equal(1)
+  })
+
+  it('Should render <ul> containing navigation links without `visible` class initially', () => {
+    const linksContainer = wrapper.find('ul')
+    expect(linksContainer.hasClass('visible')).to.equal(false)
+  })
+
+  it('Should toggle class `visible` of <ul> when menubar is clicked', () => {
+    const menubar = wrapper.find('div.nav__menubar')
+
+    expect(wrapper.find('ul').hasClass('visible')).to.equal(false)
+    menubar.simulate('click')
+    expect(wrapper.find('ul').hasClass('visible')).to.equal(true)
+    menubar.simulate('click')
+    expect(wrapper.find('ul').hasClass('visible')).to.equal(false)
+  })
+
+  it('Should remove class `visible` of <ul> when <ul>(any of the links) is clicked', () => {
+    wrapper.setState({ isMobileNavVisible: true })
+
+    expect(wrapper.find('ul').hasClass('visible')).to.equal(true)
+    wrapper.find('ul').simulate('click')
+    expect(wrapper.find('ul').hasClass('visible')).to.equal(false)
   })
 
   describe('Navigation links...', () => {
